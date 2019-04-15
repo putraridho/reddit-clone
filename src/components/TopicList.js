@@ -9,13 +9,13 @@ class TopicList extends Component {
     this.props.fetchTopic()
   }
   render() {
-    const { topics } = this.props 
+    const { topics } = this.props
     return (
       <div>
         <ul>
           {topics.map((t, i) => 
             <li key={i}>
-              <TopicCard topic={t}/>
+              <TopicCard topic={t} id={i} _updateVote={this.props.updateVote}/>
             </li>
           )}
         </ul>

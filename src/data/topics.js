@@ -1,3 +1,5 @@
+import uuid from 'uuid'
+
 export default [
   {
     title: "Me watching the scene with the Umber boy",
@@ -12,5 +14,5 @@ export default [
     community: "r/relationship_advice",
     postedBy: "u/MyDoeLaysInSnow",
     voteCount: 0,
-  },
+  }
 ]

@@ -8,9 +8,10 @@ export const fetchTopic = () => dispatch => {
   })
 }
 
-export const updateVote = count => dispatch => {
+export const updateVote = (count, id) => dispatch => {
   dispatch({
     type: UPDATE_VOTE,
+    id,
     payload: count
   })
 }
