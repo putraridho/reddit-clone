@@ -1,4 +1,4 @@
-import { FETCH_TOPIC, UPDATE_VOTE } from '../actions/types'
+import { FETCH_TOPIC, ADD_TOPIC, UPDATE_VOTE } from '../actions/types'
 import update from 'react-addons-update'
 
 const initialstate = {
@@ -9,11 +9,15 @@ const initialstate = {
 
 export default (state = initialstate, action) => {
   switch (action.type) {
-    case FETCH_TOPIC:{
+    case FETCH_TOPIC:
       return {
         ...state,
         items: action.payload
-      }}
+      }
+    case ADD_TOPIC:
+      return update(state, {
+        items: {$push: [action.payload]}
+      })
     case UPDATE_VOTE:
       return update(state, {
         items: {

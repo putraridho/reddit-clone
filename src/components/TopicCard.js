@@ -8,7 +8,6 @@ const TopicCard = ({topic, id, _updateVote}) =>
 
   return(
     <div>
-      <h4>{topic.id}</h4>
       <h1>{topic.title}</h1>
       <p><strong>{topic.community}</strong> posted by <strong>{topic.postedBy}</strong></p>
       <p>{topic.body}</p>
