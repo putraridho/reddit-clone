@@ -1,23 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
 const TopicCard = ({topic}) => 
 {
-  const [upCount, setUpCount] = useState(topic.upCount)
-  const [downCount, setDownCount] = useState(topic.downCount)
+  const setVoteCount = (count) => {
+    this.props.updateVote(count)
+  }
 
   return(
     <div>
       <h1>{topic.title}</h1>
       <p><strong>{topic.community}</strong> posted by <strong>{topic.postedBy}</strong></p>
       <p>{topic.body}</p>
-      <button onClick={() => setUpCount(upCount + 1)}>
-        upvotes: {upCount}
+      <p>Vote Count: {topic.voteCount}</p>
+      <button onClick={() => setVoteCount(topic.voteCount + 1)}>
+        upvote
       </button>
-      <button onClick={() => setDownCount(downCount + 1)}>
-        downvotes: {downCount}
+      <button onClick={() => setVoteCount(topic.voteCount - 1)}>
+        downvote
       </button>
     </div>
   )
 }
 
-export default TopicCard
+export default connect(null, actions)(TopicCard)

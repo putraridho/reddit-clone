@@ -1,26 +1,31 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
+import * as actions from '../actions'
 import TopicCard from './TopicCard'
 
-import topics from '../data/topics'
-
 class TopicList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      topics
-    }
+  componentDidMount = () => {
+    this.props.fetchTopic()
   }
-  
   render() {
+    const { topics } = this.props 
     return (
       <div>
-        {topics.map(t => 
-          <TopicCard topic={t}/>
-        )}
+        <ul>
+          {topics.map((t, i) => 
+            <li key={i}>
+              <TopicCard topic={t}/>
+            </li>
+          )}
+        </ul>
       </div>
     )
   }
 }
 
-export default TopicList
+const mapStateToProps = state => ({
+  topics: state.topic.items
+})
+
+export default connect(mapStateToProps, actions)(TopicList)
