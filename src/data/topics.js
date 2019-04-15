@@ -1,5 +1,3 @@
-import uuid from 'uuid'
-
 export default [
   {
     title: "Me watching the scene with the Umber boy",
