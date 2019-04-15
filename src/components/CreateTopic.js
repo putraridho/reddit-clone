@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import { addTopic } from '../actions'
 
@@ -13,6 +14,8 @@ const CreateTopic = props => {
     username: 'u/patrick'
   })
 
+  const [ redirect, setRedirect ] = useState(false)
+
   const onChange = (name, value) => {
     setValues({ ...values, [name]: value });
   }
@@ -23,12 +26,19 @@ const CreateTopic = props => {
     const newTopic = {
       title: values.title,
       body: values.body,
-      community: `r/${values.community.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('')}`,
+      community: `r/${values.community.split(' ').join('')}`,
       postedBy: values.username,
       voteCount: 0
     }
     
     props.addTopic(newTopic)
+    setRedirect(true)
+  }
+
+  const renderRedirect = () => {
+    if (redirect) {
+      return <Redirect to="/" />
+    }
   }
   
   return (
@@ -63,6 +73,7 @@ const CreateTopic = props => {
         </div>
         <button type="submit">Submit</button>
       </form>
+      {renderRedirect()}
     </div>
   )
 }
