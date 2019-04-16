@@ -52,6 +52,7 @@ const form = {
 }
 
 const CreateTopic = props => {
+  // DECLARE STATE WITH REACT HOOK
   const [values, setValues] = useState({
     title: '',
     body: '',
@@ -76,7 +77,9 @@ const CreateTopic = props => {
       voteCount: 0
     }
 
+    // SEND THE NEW TOPIC TO REDUCER
     props.addTopic(newTopic)
+    
     setRedirect(true)
   }
 

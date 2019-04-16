@@ -48,12 +48,13 @@ const style = {
 }
 
 const TopicList = ({ topics, updateVote, classes }) => {
+  // DECLARE STATES WITH REACT HOOK
   const [activePage, setActivePage] = useState(1)
 
+  // SORT THE TOPICS BASED ON VOTE
   topics.sort((a, b) => (a.voteCount > b.voteCount) ? -1 : 1)
 
   const handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`)
     setActivePage(pageNumber)
   }
 
@@ -61,9 +62,9 @@ const TopicList = ({ topics, updateVote, classes }) => {
     <div className={classes.topicList}>
       <ul className={classes.listWrapper}>
         {topics
+          // FILTER THE TOPICS, 20 PER PAGE
           .filter((t, i) => {
             const s = (activePage - 1) * 20
-            console.log(s)
             return (i >= s && i < (s + 20))
           })
           .map((t, i) =>
