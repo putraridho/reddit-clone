@@ -1,9 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Pagination from 'react-js-pagination'
 import injectSheet from 'react-jss'
 
 import TopicCard from './TopicCard'
 
 const style = {
+  topicList: {
+    '& .pagination': {
+      display: 'flex',
+      listStyle: 'none',
+      justifyContent: 'center',
+      '& li': {
+        lineHeight: '30px',
+        width: 30,
+        border: '1px solid #ccc',
+        marginLeft: 5,
+        marginRight: 5,
+        textAlign: 'center',
+        transition: '.2s all ease-in',
+        '&.disabled': {
+          pointerEvents: 'none',
+          opacity: 0,
+          transition: '.2s all ease-out'
+        },
+        '&.active': {
+          pointerEvents: 'none',
+          background: '#f2f2f2'
+        },
+        '& a': {
+          textDecoration: 'none',
+          color: 'inherit'
+        }
+      }
+    },
+  },
   listWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -11,28 +41,45 @@ const style = {
   },
   list: {
     listStyle: 'none',
-    width: `${100/3}%`,
+    width: `${100 / 3}%`,
     padding: '0 15px',
     marginBottom: 30
   }
 }
 
 const TopicList = ({ topics, updateVote, classes }) => {
+  const [activePage, setActivePage] = useState(1)
+
   topics.sort((a, b) => (a.voteCount > b.voteCount) ? -1 : 1)
 
-  // COMMENT THIS FILTER TO CHECK THE NEW TOPIC
-  // BECAUSE THE NEW TOPIC HAS 0 VOTES, SO IT WILL BE PLACED LAST
-  topics = topics.filter((t, i) => i < 20)
-  
+  const handlePageChange = (pageNumber) => {
+    console.log(`active page is ${pageNumber}`)
+    setActivePage(pageNumber)
+  }
+
   return (
-    <div>
+    <div className={classes.topicList}>
       <ul className={classes.listWrapper}>
-        {topics.map((t, i) => 
-          <li key={i} className={classes.list}>
-            <TopicCard topic={t} id={i} _updateVote={updateVote}/>
-          </li>
-        )}
+        {topics
+          .filter((t, i) => {
+            const s = (activePage - 1) * 20
+            console.log(s)
+            return (i >= s && i < (s + 20))
+          })
+          .map((t, i) =>
+            <li key={i} className={classes.list}>
+              <TopicCard topic={t} id={i} _updateVote={updateVote} />
+            </li>
+          )
+        }
       </ul>
+      <Pagination
+        activePage={activePage}
+        itemsCountPerPage={20}
+        pageRangeDisplayed={5}
+        totalItemsCount={topics.length}
+        onChange={handlePageChange}
+      />
     </div>
   )
 }
