@@ -20,11 +20,14 @@ const style = {
 const TopicList = ({ topics, updateVote, classes }) => {
   topics.sort((a, b) => (a.voteCount > b.voteCount) ? -1 : 1)
 
-  const top = topics.filter((t, i) => i < 20)
+  // COMMENT THIS FILTER TO CHECK THE NEW TOPIC
+  // BECAUSE THE NEW TOPIC HAS 0 VOTES, SO IT WILL BE PLACED LAST
+  topics = topics.filter((t, i) => i < 20)
+  
   return (
     <div>
       <ul className={classes.listWrapper}>
-        {top.map((t, i) => 
+        {topics.map((t, i) => 
           <li key={i} className={classes.list}>
             <TopicCard topic={t} id={i} _updateVote={updateVote}/>
           </li>

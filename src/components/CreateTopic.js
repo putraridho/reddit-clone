@@ -111,6 +111,7 @@ const CreateTopic = props => {
             name="body"
             value={values.body}
             onChange={onChange}
+            maxLength="255"
           />
         </div>
         <div className={classes.cell}>
